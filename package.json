@@ -1,0 +1,23 @@
+{
+  "name": "template-to-pdf",
+  "version": "0.0.0",
+  "description": "render pdf from template",
+  "main": "templateToPDF.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bypasslane/template-to-pdf.git"
+  },
+  "author": "Cs Br",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bypasslane/template-to-pdf/issues"
+  },
+  "homepage": "https://github.com/bypasslane/template-to-pdf#readme",
+  "dependencies": {
+    "aws-sdk": "^2.6.6",
+    "handlebars": "^4.0.5"
+  }
+}
