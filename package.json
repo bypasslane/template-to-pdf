@@ -1,6 +1,6 @@
 {
   "name": "template-to-pdf",
-  "version": "0.0.0",
+  "version": "0.0.1-5",
   "description": "render pdf from template",
   "main": "index.js",
   "scripts": {
@@ -19,8 +19,8 @@
     "aws-sdk": "^2.6.6",
     "bluebird": "^3.4.6",
     "del": "^2.2.2",
-    "fs-extra": "^0.30.0",
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "html-pdf": "^2.1.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

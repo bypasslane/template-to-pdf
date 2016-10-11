@@ -1,11 +1,11 @@
 var templateCompiler = require('./lib/templateCompiler');
 var pdfGenerator = require('./lib/pdfGenerator');
 var awsUpload = require('./lib/awsUpload');
-var saveFile = require('./lib/moveFile');
+var saveFile = require('./lib/saveFile');
 var validateOptions = require('./lib/validateOptions');
+var fs = require('fs')
 var del = require('del');
 
-//TODO add return of blob
 module.exports = function config(options) {
     return new Promise(function (resolve, reject) {
       var renderedTemplates;
@@ -31,6 +31,17 @@ module.exports = function config(options) {
                 del('./tmp/**');
                 return;
               });
+          } else if (options.buffer === true) {
+            //return a buffer
+            fs.readFile(tempFile, function (err, data) {
+              if (err) {
+                reject(err);
+                console.error('error', err);
+                return;
+              }
+              resolve(data)
+              del('./tmp/**');
+            })
           } else {
             saveFile(tempFile, options.filePath, options.fileName)
               .then(function (success) {
