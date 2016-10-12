@@ -9,7 +9,10 @@ var del = require('del');
 module.exports = function config(options) {
     return new Promise(function (resolve, reject) {
       var renderedTemplates;
-      validateOptions(options);
+      if (validateOptions(options) === false ) {
+        reject("Malformed Options");
+        return;
+      };
 
       if (options.html) {
         renderedTemplates = options.html;
