@@ -1,7 +1,7 @@
 {
-  "name": "template-to-pdf",
+  "name": "html-template-pdf",
   "version": "0.0.1-10",
-  "description": "render pdf from template",
+  "description": "This is the swiss army knife of html to pdf render'ers. Support for EJS, Mustache, Handlebars, Pug, or HAML to PDF",
   "main": "index.js",
   "scripts": {
     "test": "gulp test"
