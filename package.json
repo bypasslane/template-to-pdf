@@ -20,7 +20,8 @@
     "bluebird": "^3.4.6",
     "del": "^2.2.2",
     "handlebars": "^4.0.5",
-    "html-pdf": "^2.1.0"
+    "html-pdf": "^2.1.0",
+    "pug": "^2.0.0-beta6"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
