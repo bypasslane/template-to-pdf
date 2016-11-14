@@ -1,4 +1,4 @@
-# template-to-pdf
+# html-template-pdf
 This is the swiss army knife of html to pdf render'ers.  
 **ejs**, **mustache**, **handlebars**, **pug**, or **haml** to PDF
 
@@ -10,9 +10,9 @@ This is the swiss army knife of html to pdf render'ers.
 
 **basic usage if you have pdftk installed**
 
-`npm install template-to-pdf`
+`npm install html-template-pdf`
 
-`var templateToPdf = require('template-to-pdf')`
+`var templateToPdf = require('html-template-pdf')`
 
 ### Save to file System
 
