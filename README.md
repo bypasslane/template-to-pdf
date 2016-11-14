@@ -24,12 +24,12 @@ var options = {
 }
 
 templatetoPdf(options)
-    .then(function(resp){
-      console.log(resp);
-    })
-    .catch(function(err){
-      console.log(err);
-    });
+  .then(function(resp){
+    console.log(resp);
+  })
+  .catch(function(err){
+    console.log(err);
+  });
 ```
 
 ### Return a Buffer
