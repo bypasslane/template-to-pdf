@@ -1,6 +1,6 @@
 {
   "name": "html-template-pdf",
-  "version": "0.1.0",
+  "version": "0.1.1-0",
   "description": "This is the swiss army knife of html to pdf render'ers. Support for EJS, Mustache, Handlebars, Pug, or HAML to PDF",
   "main": "index.js",
   "scripts": {
