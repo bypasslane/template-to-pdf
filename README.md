@@ -1,9 +1,14 @@
 # template-to-pdf
-dont ask questions just render me a pdf
+This is the swiss army knife of html to pdf render'ers.  
+**ejs**, **mustache**, **handlebars**, **pug**, or **haml** to PDF
 
-this is still a WIP
+### Use Cases
 
-basic usage if you have pdftk installed
+1. I have an HTML file/page that I need to convert into a pdf, save it to local filesystem, S3, or get back a buffer.
+
+2. I have an HTML template and data written in **ejs**, **mustache**, **handlebars**, **pug**, or **haml**, and I need to make a pdf out of it, and upload it to S3 or filesystem, or buffer
+
+**basic usage if you have pdftk installed**
 
 `npm install template-to-pdf`
 
@@ -38,7 +43,7 @@ have your creds in `~/.aws/credentials`
 structure credentials file to look like
 
 ```
-[s3]
+[default]
 aws_access_key_id = YOURACCESSKEYID
 aws_secret_access_key = YOURSECRETACCESSKEY
 ```
@@ -56,7 +61,8 @@ var options = {
 
 ### Support for templating
 
-currently it only supports `Handlebars` templating, an example of your options would look like
+currently there is support for **Handlebars, Mustache, EJS, HAML, PUG**
+Mkae sure you change the `templateType` to the template you are using.
 
 ```javascript
 var options = {
