@@ -183,7 +183,7 @@ var options = {
 
 ### Note
 
-we are using pdftk.  go to their website https://www.pdflabs.com/tools/pdftk-server/ to download.
+we are using pdftk.  go to their website https://www.pdflabs.com/tools/pdftk-server/ to download.  If on OSX use this https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg
 
 by default we are using the command line call, but you may pass in an optional path if you are having trouble rendering a pdf
 ```javascript
