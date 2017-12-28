@@ -194,4 +194,15 @@ var options = {
   buffer: true 
 }
 ```
-
+### Passing in additional parameters for PDFtk
+```javascript
+var options = {
+  html: "<div><p>hello der</p></div>",
+  fileName: 'howdycolton.pdf',
+  pdftkOptions: {
+    owner_pw: 'somepassword',
+    allow: ['DegradedPrinting', 'CopyContents', 'Printing']
+  }
+}
+```
+Run `pdftk --help` from the machine running the service to see additional parameters that can be passed in.
