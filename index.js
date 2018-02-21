@@ -1,3 +1,40 @@
+/**
+  * @section Documentation
+  * @module template-to-pdf
+  * @param {object} data an object that contains the template/html, fileName, and AWS configurations.
+  * @return {object} an object that contains the download link for the pdf generated
+  * @example
+  *
+  * var templateToPDF = require('template-to-pdf');
+  *
+  * var data = {
+  *   fileName: "newFile.pdf",
+  *   pdfOptions: {
+  *    orientation: 'landscape',
+  *    format: "letter",
+  *    margin: '0px'
+  *   },
+  *   templateOptions: {
+  *      template: "h1 #{message}",
+  *     templateData: [{message: "Hello!"}],
+  *      templateType: "pug"
+  *   },
+  *   html: "<h1> Hello! </h1>" #alternative to templateOptions
+  *   aws: {
+  *     s3: true,
+  *     bucket: "pdf-err/"
+  *   }
+  * }
+  *
+  * templateToPDF(data)
+  *   .then(function (downloadLink) {
+  *     console.log(downloadLink);
+  *   })
+  * .catch(function (error) {
+  *     console.log(error);
+  * })
+  */
+
 var templateCompiler = require('./lib/templateCompiler');
 var pdfGenerator = require('./lib/pdfGenerator');
 var awsUpload = require('./lib/awsUpload');
