@@ -56,7 +56,6 @@ templatetoPdf(options)
 **Return a Buffer**
 ```javascript
   buffer = true
-}
 ```
 
 **Save to s3**
@@ -68,7 +67,6 @@ templatetoPdf(options)
 ```
 
 Requires AWS credentials in `~/.aws/credentials`.
-Example:
 ```
 [default]
 aws_access_key_id = YOURACCESSKEYID
