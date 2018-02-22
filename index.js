@@ -106,5 +106,9 @@ module.exports = function config(options) {
           console.error(err);
           return;
         })
-    });
+    })
+    .catch(function (error) {
+      console.error('Error: ', error);
+      return error;
+    });;
 };
