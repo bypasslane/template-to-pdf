@@ -44,6 +44,7 @@ var fs = require('fs')
 var del = require('del');
 
 module.exports = function config(options) {
+  console.log("IN TEMPLATE TO PDF");
     return new Promise(function (resolve, reject) {
       var renderedTemplates;
       if (validateOptions(options) === false ) {
@@ -56,12 +57,15 @@ module.exports = function config(options) {
       } else {
         renderedTemplates = templateCompiler(options.templateOptions);
       }
-
+      console.log("ABOUT TO GENERATE PDF");
       pdfGenerator(options.pdfOptions, renderedTemplates, options.fileName, options.pdftkPath)
         .then(function (tempFile) {
+          console.log("DONE GENERATING")
           if (options.aws) {
+            console.log("UPLOADING TO AWS")
             awsUpload(options.aws, tempFile, options.fileName)
               .then(function (success) {
+                console.log("DONE UPLOADING")
                 resolve(success);
                 del('./tmp/**');
               })
