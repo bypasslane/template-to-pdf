@@ -1,39 +1,26 @@
-# Template to PDF
+# html-template-pdf
+This is the swiss army knife of html to pdf render'ers.  
+**ejs**, **mustache**, **handlebars**, **pug**, or **haml** to PDF
 
-Module that converts html to a PDF file.
+### Use Cases
 
-### Support for templating
+1. I have an HTML file/page that I need to convert into a pdf, save it to local filesystem, S3, or get back a buffer.
 
-Currently there is support for **Handlebars, Mustache, EJS, HAML, PUG**.
-Make sure you change the `templateType` to the template you are using.
+2. I have an HTML template and data written in **ejs**, **mustache**, **handlebars**, **pug**, or **haml**, and I need to make a pdf out of it, and upload it to S3 or filesystem, or buffer
 
-```javascript
-var options = {
-  templateOptions: {
-    template: '<p>{{basic}}</p>',
-    templateData: { basic: 'hello world' },
-    templateType: 'Handlebars'
-  },
-  aws: {
-    s3: true,
-    bucket: 'pdf-err/meow/baby'
-  }
-}
-```
-
-### Usage
-
-Download and install `pdftk`. https://www.pdflabs.com/tools/pdftk-server/
+**basic usage if you have pdftk installed**
 
 `npm install html-template-pdf`
 
 `var templateToPdf = require('html-template-pdf')`
 
+### Save to file System
+
 ```javascript
 var options = {
-  html: "<div><p>hello der</p></div>",
-  fileName: 'howdycolton.pdf',
-  filePath: '/Users/myname/Desktop/baaay/'
+  html: "<div><p>hello der</p></div>", 
+  fileName: 'howdycolton.pdf', 
+  filePath: '/Users/myname/Desktop/baaay/' 
 }
 
 templatetoPdf(options)
@@ -45,274 +32,166 @@ templatetoPdf(options)
   });
 ```
 
-### Saving options:
+### Return a Buffer
 
-**Save to file System**
 ```javascript
+var options = {
+  html: "<div><p>hello der</p></div>", 
   fileName: 'howdycolton.pdf',
-  filePath: '/Users/myname/Desktop/baaay/'
+  buffer = true 
+}
 ```
 
-**Return a Buffer**
-```javascript
-  buffer = true
-```
+### Save to s3
 
-**Save to s3**
-```javascript
-  aws: {
-    s3: true,
-    bucket: 'pdf-err/meow/baby'
-  }
-```
+have your creds in `~/.aws/credentials`
 
-Requires AWS credentials in `~/.aws/credentials`.
+structure credentials file to look like
+
 ```
 [default]
 aws_access_key_id = YOURACCESSKEYID
 aws_secret_access_key = YOURSECRETACCESSKEY
 ```
 
-### Passing in pdf options
-
-We use the phantom-html-to-pdf library for pdf generation.  
-They accept a list of arguments for the pdf that you could optionally pass in.
-
-**Basic pdfOPtions**
 ```javascript
 var options = {
-  html: "<div><p>hello der</p></div>",
-  fileName: 'howdycolton.pdf',
-  filePath: '/Users/myname/Desktop/baaay/'
-  pdfOptions: {
-    orientation: 'landscape',
-    format: "letter",
-    margin: '0px'
+  html: "<div><p>hello der</p></div>", 
+  fileName: 'howdycolton.pdf', 
+  aws: {
+    s3: true, 
+    bucket: 'pdf-err/meow/baby'
   }
 }
 ```
 
-More Papersize options: http://phantomjs.org/api/webpage/property/paper-size.html
+### Support for templating
+
+currently there is support for **Handlebars, Mustache, EJS, HAML, PUG**
+Mkae sure you change the `templateType` to the template you are using.
+
+```javascript
+var options = {
+  templateOptions: {
+    template: '<p>{{basic}}</p>', 
+    templateData: { basic: 'hello world' }, 
+    templateType: 'Handlebars'
+  },
+  aws: {
+    s3: true,
+    bucket: 'pdf-err/meow/baby'
+  }
+}
+```
+
+### Passing in pdf options
+
+we use the html-pdf library for pdf generation.  They accept a list of arguments for the pdf that you could optionally pass in
+
+#### most basic pdfOPtions 
+
+```javascript
+var options = {
+  templateOptions: {
+    template: '<p>{{basic}}</p>',
+    templateData: { basic: 'hello world' },
+    templateType: 'Handlebars'
+  },
+  aws: {
+    s3: true,
+    bucket: 'pdf-err/meow/baby'
+  },
+  
+  pdfOptions: {
+    format: 'Letter'
+  }
+}
+```
+
+#### but you could get crazy
+```javascript
+var options = {
+  templateOptions: {
+    template: '<p>{{basic}}</p>',
+    templateData: { basic: 'hello world' },
+    templateType: 'Handlebars'
+  },
+  aws: {
+    s3: true,
+    bucket: 'pdf-err/meow/baby'
+  },
+  
+  pdfOptions: {
+    // Papersize Options: http://phantomjs.org/api/webpage/property/paper-size.html 
+    "height": "10.5in",        // allowed units: mm, cm, in, px 
+    "width": "8in",            // allowed units: mm, cm, in, px 
+    - or -
+    "format": "Letter",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
+    "orientation": "portrait", // portrait or landscape 
+   
+    // Page options 
+    "border": "0",             // default is 0, units: mm, cm, in, px 
+    - or -
+    "border": {
+      "top": "2in",            // default is 0, units: mm, cm, in, px 
+      "right": "1in",
+      "bottom": "2in",
+      "left": "1.5in"
+    },
+   
+    "header": {
+      "height": "45mm",
+      "contents": '<div style="text-align: center;">Author: Marc Bachmann</div>'
+    },
+    "footer": {
+      "height": "28mm",
+      "contents": {
+        first: 'Cover page',
+        2: 'Second page' // Any page number is working. 1-based index 
+        default: '<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value 
+        last: 'Last Page'
+      }
+    },
+   
+   
+    // Rendering options 
+    "base": "file:///home/www/your-asset-path", // Base path that's used to load files (images, css, js) when they aren't referenced using a host 
+   
+    // Zooming option, can be used to scale images if `options.type` is not pdf 
+    "zoomFactor": "1", // default is 1 
+   
+    // File options 
+    "type": "pdf",             // allowed file types: png, jpeg, pdf 
+    "quality": "75",           // only used for types png & jpeg 
+   
+    // Script options 
+    "phantomPath": "./node_modules/phantomjs/bin/phantomjs", // PhantomJS binary which should get downloaded automatically 
+    "phantomArgs": [], // array of strings used as phantomjs args e.g. ["--ignore-ssl-errors=yes"] 
+    "script": '/url',           // Absolute path to a custom phantomjs script, use the file in lib/scripts as example 
+    "timeout": 30000,           // Timeout that will cancel phantomjs, in milliseconds 
+   
+    // HTTP Headers that are used for requests 
+    "httpHeaders": {
+      // e.g. 
+      "Authorization": "Bearer ACEFAD8C-4B4D-4042-AB30-6C735F5BAC8B"
+    }
+   
+  }
+
+}
+```
 
 ### Note
 
-If on MAC OSX 10.11 use this https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg version of pdftk as there have been issues reported with 10.11.
+we are using pdftk.  go to their website https://www.pdflabs.com/tools/pdftk-server/ to download.  If on OSX use this https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg
 
-By default we are using the command line call for pdftk,
-but you may pass in an optional path if you are having trouble rendering a pdf.
+by default we are using the command line call, but you may pass in an optional path if you are having trouble rendering a pdf
 ```javascript
 var options = {
   html: "<div><p>hello der</p></div>",
   fileName: 'howdycolton.pdf',
-  pdftkPath: '/usr/local/bin/pdftk',
-  buffer: true
+  pdftkPath: '/usr/local/bin/pdftk', 
+  buffer: true 
 }
 ```
 
-## Documentation
-
-<!-- Generated by documentation.js. Update this documentation by updating the source code. -->
-
-#### Table of Contents
-
--   [template-to-pdf](#template-to-pdf)
--   [compileTemplate](#compiletemplate)
--   [generatePDF](#generatepdf)
--   [awsUpload](#awsupload)
--   [saveFile](#savefile)
--   [validateOptions](#validateoptions)
-
-### template-to-pdf
-
-**Parameters**
-
--   `data` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** an object that contains the template/html, fileName, and AWS configurations.
-
-**Examples**
-
-```javascript
-var templateToPDF = require('template-to-pdf');
-
-var data = {
-  fileName: "newFile.pdf",
-  pdfOptions: {
-   orientation: 'landscape',
-   format: "letter",
-   margin: '0px'
-  },
-  templateOptions: {
-     template: "h1 #{message}",
-    templateData: [{message: "Hello!"}],
-     templateType: "pug"
-  },
-  html: "<h1> Hello! </h1>" #alternative to templateOptions
-  aws: {
-    s3: true,
-    bucket: "pdf-err/"
-  }
-}
-
-templateToPDF(data)
-  .then(function (downloadLink) {
-    console.log(downloadLink);
-  })
-.catch(function (error) {
-    console.log(error);
-})
-```
-
-Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** an object that contains the download link for the pdf generated
-
-### compileTemplate
-
-**Parameters**
-
--   `options` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** object that contains the template, template data, and template type
-
-**Examples**
-
-```javascript
-var compileTemplate = require('./lib/compileTemplate');
-var options = {
-  template: "h1 #{message}",
-  templateData: [{message: "Hello!"}],
-  templateType: "pug"
-}
-compileTemplate(options)
-  .then(function (renderedTemplates) {
-    console.log(renderedTemplates);
-  })
-.catch(function (error) {
-    console.log(error);
-})
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to the file saved
-
-### generatePDF
-
--   **See: <http://phantomjs.org/api/webpage/property/paper-size.html>**
-
-**Parameters**
-
--   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** pdf paperSize options
--   `templates` **[array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** rendered html templates
--   `fileName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** desired file name
--   `pdftkPath` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to pdftk
-
-**Examples**
-
-```javascript
-var generatePDF = require('./lib/generatePDF');
-var options = {
-  orientation: 'landscape',
-  format: "letter",
-  margin: '0px'
-};
-var templates = [];
-var fileName = "newFile.pdf";
-var pdftkPath = "usr/local/bin/pdftk";
-generatePDF(options, templates, fileName, pdftkPath)
-  .then(function (url) {
-    console.log(url);
-  })
-.catch(function (error) {
-    console.log(error);
-})
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to the file generated
-
-### awsUpload
-
-**Parameters**
-
--   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** aws bucket data
--   `filePath` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** local path to file that will be uploaded to aws bucket
--   `fileName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** desired file name
-
-**Examples**
-
-```javascript
-var awsUpload = require('./lib/awsUpload');
-var options = {
-  s3: true,
-  bucket: 'pdf-err/meow/baby'
-}
-var filePath = "./tmp/tempFile.pdf"
-var fileName = "newFile.pdf"
-awsUpload(options, filePath, fileName)
-  .then(function (url) {
-    console.log(url);
-  })
-.catch(function (error) {
-    console.log(error);
-})
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** url download link of pdf file in aws s3 bucket
-
-### saveFile
-
-**Parameters**
-
--   `tempFile` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** rendered html templates
--   `filePath` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** desired file name
--   `fileName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to pdftk
-
-**Examples**
-
-```javascript
-var saveFile = require('./lib/saveFile');
-var tempFile = "./tmp/tempFile.pdf";
-var filePath = "./pdf-files/";
-var fileName = "newFile.pdf";
-saveFile(options, templates, fileName, pdftkPath)
-  .then(function (newFilePath) {
-    console.log(newFilePath);
-  })
-.catch(function (error) {
-    console.log(error);
-})
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to the file saved
-
-### validateOptions
-
-**Parameters**
-
--   `options` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** object that contains the template, template data, and template type
-
-**Examples**
-
-```javascript
-var validateOptions = require('./lib/validateOptions');
-var options = {
-  fileName: "newFile.pdf",
-  pdfOptions: {
-   orientation: 'landscape',
-   format: "letter",
-   margin: '0px'
-  },
-  templateOptions: {
-     template: "h1 #{message}",
-    templateData: [{message: "Hello!"}],
-     templateType: "pug"
-  },
-  html: "<h1> Hello! </h1>" #alternative to templateOptions
-  aws: {
-    s3: true,
-    bucket: "pdf-err/"
-  }
-}
-validateOptions(options)
-  .then(function (newFilePath) {
-    console.log(newFilePath);
-  })
-.catch(function (error) {
-    console.log(error);
-})
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to the file saved
