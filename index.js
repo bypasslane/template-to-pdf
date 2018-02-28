@@ -5,7 +5,8 @@
   * @return {object} an object that contains the download link for the pdf generated
   * @example
   *
-  * var templateToPDF = require('template-to-pdf');
+  * var logger = <your logger> #optional
+  * var templateToPDF = require('template-to-pdf')({logger: logger});
   *
   * var data = {
   *   fileName: "newFile.pdf",
@@ -43,7 +44,7 @@ var validateOptions = require('./lib/validateOptions');
 var fs = require('fs');
 var logger = console;
 
-module.exports = function (options) {
+module.exports = function (options = {}) {
   if (options.logger) { logger = options.logger; }
   return generate;
 }
@@ -51,7 +52,7 @@ module.exports = function (options) {
 function generate(options) {
   return new Promise(function (resolve, reject) {
     var renderedTemplates;
-    if (validateOptions(options) === false ) {
+    if (validateOptions(options, logger) === false ) {
       reject("Malformed Options");
     };
 
