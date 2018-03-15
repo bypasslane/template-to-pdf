@@ -1,10 +1,12 @@
 {
   "name": "template-to-pdf",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "This is the swiss army knife of html to pdf render'ers. Support for EJS, Mustache, Handlebars, Pug, or HAML to PDF",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "readme-docs": "./node_modules/documentation/bin/documentation.js readme index.js --section=Documentation",
+    "html-docs": "./node_modules/documentation/bin/documentation.js serve index.js"
   },
   "repository": {
     "type": "git",
@@ -33,12 +35,14 @@
     "ejs": "^2.5.2",
     "haml": "^0.4.3",
     "handlebars": "^4.0.5",
-    "html-pdf": "^2.1.0",
     "mustache": "^2.3.0",
-    "pug": "^2.0.0-beta6"
+    "pug": "^2.0.0-beta6",
+    "phantom-html-to-pdf": "^0.5.5",
+    "phantomjs2": "^2.2.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-bump": "^2.4.0"
+    "gulp-bump": "^2.4.0",
+    "documentation": "^5.4.0"
   }
 }
