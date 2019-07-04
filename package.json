@@ -4,7 +4,9 @@
   "description": "This is the swiss army knife of html to pdf render'ers. Support for EJS, Mustache, Handlebars, Pug, or HAML to PDF",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -35,10 +37,12 @@
     "handlebars": "^4.0.5",
     "html-pdf": "^2.1.0",
     "mustache": "^2.3.0",
-    "pug": "^2.0.0-beta6"
+    "pug": "^2.0.0-beta6",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-bump": "^2.4.0"
-  }
+  },
+  "snyk": true
 }
