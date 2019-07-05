@@ -38,7 +38,7 @@
     "html-pdf": "^2.1.0",
     "mustache": "^2.3.0",
     "pug": "^2.0.0-beta6",
-    "snyk": "^1.189.0"
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

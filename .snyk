@@ -10,3 +10,25 @@ patch:
         patched: '2019-07-04T02:16:51.007Z'
     - pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
         patched: '2019-07-04T02:16:51.007Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-05T23:24:03.077Z'
