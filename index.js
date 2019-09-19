@@ -52,7 +52,7 @@ module.exports = function (options = {}) {
 function generate(options) {
   return new Promise(function (resolve, reject) {
     var renderedTemplates;
-    const validityObj = validateOptions(options, logger);
+    var validityObj = validateOptions(options, logger);
     if (validityObj.valid === false ) {
       reject(validityObj.message);
     };
