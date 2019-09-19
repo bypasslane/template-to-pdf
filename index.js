@@ -45,7 +45,7 @@ var fs = require('fs');
 var logger = console;
 
 module.exports = function (options = {}) {
-  // if (options.logger) { logger = options.logger; }
+  if (options.logger) { logger = options.logger; }
   return generate;
 }
 
