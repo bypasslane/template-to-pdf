@@ -52,8 +52,9 @@ module.exports = function (options = {}) {
 function generate(options) {
   return new Promise(function (resolve, reject) {
     var renderedTemplates;
-    if (validateOptions(options, logger) === false ) {
-      reject("Malformed Options");
+    var validityObj = validateOptions(options, logger);
+    if (validityObj.valid === false ) {
+      reject(validityObj.message);
     };
 
     if (options.html) {
@@ -75,7 +76,7 @@ function generate(options) {
       })
       .catch(function (error) {
         logger.error("PDF Generating Error:", error);
-        return error;
+        throw error;
       });
   })
   .then(tempFile => {
@@ -90,7 +91,7 @@ function generate(options) {
         })
         .catch(function (error) {
           logger.error("AWS Upload Error", error);
-          return error;
+          throw error;
         });
     } else if (options.buffer === true) {
       //return a buffer
@@ -105,19 +106,19 @@ function generate(options) {
         });
       });
     } else {
-      saveFile(tempFile, options.filePath, options.fileName)
+      return saveFile(tempFile, options.filePath, options.fileName)
         .then(function (newFilePath) {
           logger.info("File saved locally:", newFilePath);
           return newFilePath;
         })
         .catch(function (error) {
           logger.error("Save to file Error:", error);
-          return error;
+          throw error;
         })
     }
   })
   .catch(function (error) {
     logger.error("Error:", error);
-    return error;
+    throw error;
   });
 };
