@@ -6,13 +6,12 @@ on:
 
 jobs:
   publish-gpr:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 8
           registry-url: https://npm.pkg.github.com/
           scope: '@bypasslane'
       - run: npm ci
