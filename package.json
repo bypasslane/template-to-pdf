@@ -1,6 +1,6 @@
 {
   "name": "@bypasslane/template-to-pdf",
-  "version": "1.2.0",
+  "version": "1.2.0-beta.1",
   "description": "This is the swiss army knife of html to pdf render'ers. Support for EJS, Mustache, Handlebars, Pug, or HAML to PDF",
   "main": "index.js",
   "scripts": {
@@ -34,11 +34,11 @@
     "del": "^2.2.2",
     "ejs": "^2.5.2",
     "haml": "^0.4.3",
-    "handlebars": "^4.0.5",
+    "handlebars": "^4.7.6",
     "mustache": "^2.3.0",
-    "pug": "^2.0.0-beta6",
-    "phantom-html-to-pdf": "^0.5.5",
-    "phantomjs2": "^2.2.0"
+    "phantom-html-to-pdf": "^0.6.0",
+    "phantomjs2": "^2.2.0",
+    "pug": "^2.0.0-beta6"
   },
   "devDependencies": {
     "documentation": "^5.4.0",
