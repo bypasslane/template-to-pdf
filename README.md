@@ -14,9 +14,9 @@ var options = {
     templateData: { basic: 'hello world' },
     templateType: 'Handlebars'
   },
-  aws: {
-    s3: true,
-    bucket: 'pdf-err/meow/baby'
+  gcp: {
+    bucket: 'your-gcp-bucket-name',
+    keyFilename: '/path/to/your/gcp-keyfile.json' // optional
   }
 }
 ```
@@ -58,20 +58,19 @@ templatetoPdf(options)
   buffer = true
 ```
 
-**Save to s3**
+**Save to GCP**
 ```javascript
-  aws: {
-    s3: true,
-    bucket: 'pdf-err/meow/baby'
-  }
+let options ={
+  gcp: {
+     bucket: 'your-gcp-bucket-name',
+     keyFilename: '/path/to/your/gcp-keyfile.json' // optional
+   }
+}
 ```
+**or** 
 
-Requires AWS credentials in `~/.aws/credentials`.
-```
-[default]
-aws_access_key_id = YOURACCESSKEYID
-aws_secret_access_key = YOURSECRETACCESSKEY
-```
+ GCP credentials in the exported variable `GOOGLE_APPLICATION_CREDENTIALS='/path/to/your/credentials.json`.
+
 
 ### Passing in pdf options
 
@@ -118,7 +117,7 @@ var options = {
 -   [template-to-pdf](#template-to-pdf)
 -   [compileTemplate](#compiletemplate)
 -   [generatePDF](#generatepdf)
--   [awsUpload](#awsupload)
+-   [gcpUpload](#gcpupload)
 -   [saveFile](#savefile)
 -   [validateOptions](#validateoptions)
 
@@ -126,7 +125,7 @@ var options = {
 
 **Parameters**
 
--   `data` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** an object that contains the template/html, fileName, and AWS configurations.
+-   `data` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** an object that contains the template/html, fileName, and GCP configurations.
 
 **Examples**
 
@@ -146,8 +145,7 @@ var data = {
      templateType: "pug"
   },
   html: "<h1> Hello! </h1>" #alternative to templateOptions
-  aws: {
-    s3: true,
+  gcp: {
     bucket: "pdf-err/"
   }
 }
@@ -223,25 +221,25 @@ generatePDF(options, templates, fileName, pdftkPath)
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to the file generated
 
-### awsUpload
+### gcpUpload
 
 **Parameters**
 
--   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** aws bucket data
--   `filePath` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** local path to file that will be uploaded to aws bucket
+-   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** gcp bucket data
+-   `filePath` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** local path to file that will be uploaded to gcp bucket
 -   `fileName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** desired file name
 
 **Examples**
 
 ```javascript
-var awsUpload = require('./lib/awsUpload');
+var gcpUpload = require('./lib/gcpUpload');
 var options = {
   s3: true,
   bucket: 'pdf-err/meow/baby'
 }
 var filePath = "./tmp/tempFile.pdf"
 var fileName = "newFile.pdf"
-awsUpload(options, filePath, fileName)
+gcpUpload(options, filePath, fileName)
   .then(function (url) {
     console.log(url);
   })
@@ -250,7 +248,7 @@ awsUpload(options, filePath, fileName)
 })
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** url download link of pdf file in aws s3 bucket
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** url download link of pdf file in gcp s3 bucket
 
 ### saveFile
 
@@ -301,8 +299,7 @@ var options = {
      templateType: "pug"
   },
   html: "<h1> Hello! </h1>" #alternative to templateOptions
-  aws: {
-    s3: true,
+  gcp: {
     bucket: "pdf-err/"
   }
 }
